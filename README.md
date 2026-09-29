@@ -95,12 +95,12 @@ Scripts: [`scripts/ex02/`](scripts/ex02/)
 
 Scripts: [`scripts/ex04/`](scripts/ex04/)
 
-1. Hacer **Upgrade** de `WSn_RS` con `EX01` y `EX02`, en ese orden.
+1. Hacer **Upgrade** de `WSn_RS` con el paquete `EX02`.
 2. Revisar el log de ejecución.
-3. Promover los paquetes a **QA**.
+3. Promover `EX02` a **QA**.
 4. Ejecutar `verify_qa.sql` en `WSn_QA`.
 
-✅ **Resultado esperado:** los paquetes figuran como desplegados en RS y QA, y en QA el procedure inserta la fila.
+✅ **Resultado esperado:** `EX02` figura como desplegado en RS y QA, y en QA el procedure inserta la fila.
 
 ---
 
@@ -157,7 +157,7 @@ Scripts: [`scripts/ex07/`](scripts/ex07/)
 | 1 | Paquete manual (tabla) | EX01 | 15' |
 | 2 | Build desde DEV (SP) | EX02 | 20' |
 | 3 | Pre-check | EX01, EX02 | 15' |
-| 4 | Deploy RS → QA | EX01, EX02 | 15' |
+| 4 | Deploy RS → QA | EX02 | 15' |
 | 5 | Rollback | EX02 | 10' |
 | 6 | Drift | n/a | 15' |
 | 7 | Desafío: modificar paquete | EX04 | 20' |
