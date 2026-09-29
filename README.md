@@ -58,8 +58,17 @@ Scripts: [`scripts/ex02/`](scripts/ex02/)
 1. Conectarse a `WSn_DEV` con SQL Developer / SQLcl.
 2. Si `EX_CUSTOMERS` todavía no existe en DEV, ejecutar `dev_create_customers.sql`.
 3. Ejecutar `dev_create_proc_add_customer.sql`.
-4. En DOP, ir al entorno **Dev** y usar **Build / Create package from environment**.
-5. Seleccionar solo el objeto `EX_ADD_CUSTOMER` y ponerle al paquete el nombre `EX02`.
+4. En DOP, en la vista de entornos del proyecto, abrir el menú de **Dev** y elegir **Build**.
+5. En el diálogo **Build**, completar:
+   - **Source:** `Live Version`
+   - **Target:** `Live Version`
+   - **Create Downgrade Scripts:** marcado
+   - **Create Package:** marcado
+   - **Version Name:** `EX02`
+
+   ![Diálogo Build: Source y Target en Live Version](images/ex02_build_dialog.png)
+
+   Hacer clic en **Build script**. El Build no deja elegir objetos sueltos: DBmaestro compara los esquemas e incluye en el paquete todas las diferencias que encuentra.
 6. Abrir el paquete generado y revisar el script que armó DBmaestro. Si no trae downgrade, agregar `02_drop_proc_add_customer.sql`.
 
 ✅ **Resultado esperado:** `EX02` contiene el `CREATE OR REPLACE PROCEDURE` generado a partir de DEV.
@@ -168,4 +177,5 @@ scripts/
   ex05/  Verificación del rollback
   ex06/  Generar y revertir drift en QA
   ex07/  Índice desde DEV + script de datos manual
+images/  Capturas de pantalla de la UI
 ```
