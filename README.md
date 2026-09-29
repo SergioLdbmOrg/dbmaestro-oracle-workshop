@@ -122,17 +122,26 @@ Scripts: [`scripts/ex05/`](scripts/ex05/)
 
 ---
 
-## Ejercicio 6: Detección de drift
+## Ejercicio 6: Detección de drift en un stored procedure (Release Source)
+
+**Objetivo:** ver qué pasa cuando alguien cambia un objeto a mano en un entorno del pipeline y después llega un paquete oficial que toca ese mismo objeto.
 
 Scripts: [`scripts/ex06/`](scripts/ex06/)
 
-1. Conectarse directamente a `WSn_QA`, por fuera de DBmaestro, y ejecutar `qa_manual_drift.sql`.
-2. En DOP, ejecutar **Validate** sobre QA.
-3. Intentar desplegar un paquete nuevo en QA y ver qué pasa.
+1. **Generar el drift:** conectarse directamente a `WSn_RS`, por fuera de DBmaestro, y ejecutar `rs_manual_drift.sql`. Simula un "hotfix" manual: el procedure `EX_ADD_CUSTOMER` pasa a guardar el email en mayúsculas.
+2. En DOP, ejecutar **Validate** sobre **Release Source** y revisar la diferencia que reporta en `EX_ADD_CUSTOMER`.
+3. **Cambio oficial en DEV:** conectarse a `WSn_DEV` y ejecutar `dev_change_proc_add_customer.sql`. El procedure ahora valida que el email sea obligatorio y lo guarda en minúsculas.
+4. Hacer **Build** desde **Dev** igual que en el ejercicio 2 (Source: `Live Version`, Target: `Live Version`, Create Downgrade Scripts y Create Package marcados), con **Version Name** `EX03`.
+5. Correr el **Pre-check** de `EX03` e intentar el **Upgrade** de `WSn_RS` con `EX03`.
+6. **Corregir el drift:** ejecutar `rs_revert_drift.sql` en `WSn_RS` para volver el procedure a la versión de `EX02`. Repetir **Validate** sobre Release Source y confirmar que ya no hay diferencias.
+7. Volver a hacer el **Upgrade** de `WSn_RS` con `EX03` y después promoverlo a **QA**.
 
-✅ **Resultado esperado:** DBmaestro detecta la diferencia (drift) entre el estado esperado y el real, y avisa o bloquea el deploy.
+✅ **Resultado esperado:**
+- En el paso 2, Validate muestra que `EX_ADD_CUSTOMER` en RS no coincide con lo desplegado por DBmaestro.
+- En el paso 5, DBmaestro avisa o bloquea el Upgrade porque RS tiene drift sobre el mismo objeto que cambia `EX03`.
+- En el paso 7, `EX03` se despliega sin problemas en RS y QA.
 
-💡 **Para pensar:** ¿cómo se corrige? Una opción es revertir el cambio manual (`qa_revert_drift.sql`); la otra es formalizarlo en un paquete que venga desde DEV.
+💡 **Para pensar:** si el Upgrade del paso 5 se hubiera forzado, el cambio de `EX03` habría pisado el hotfix manual sin que nadie se enterara. ¿Qué habría pasado si el hotfix era importante? La forma correcta de conservarlo es llevarlo a DEV y que viaje en un paquete.
 
 ---
 
@@ -146,7 +155,7 @@ Scripts: [`scripts/ex06/`](scripts/ex06/)
 | 3 | Pre-check | EX01, EX02 | 15' |
 | 4 | Deploy RS → QA | EX02 | 15' |
 | 5 | Rollback | EX02 | 10' |
-| 6 | Drift | n/a | 15' |
+| 6 | Drift en SP (RS) | EX03 | 25' |
 
 ## Estructura del repositorio
 
@@ -156,6 +165,6 @@ scripts/
   ex02/  Scripts para ejecutar en DEV: tabla + procedure EX_ADD_CUSTOMER
   ex04/  Verificación del deploy en QA
   ex05/  Verificación del rollback
-  ex06/  Generar y revertir drift en QA
+  ex06/  Drift en RS: hotfix manual, cambio oficial en DEV y reversión
 images/  Capturas de pantalla de la UI
 ```
