@@ -136,25 +136,6 @@ Scripts: [`scripts/ex06/`](scripts/ex06/)
 
 ---
 
-## Ejercicio 7: Modificar un paquete existente (desafío)
-
-Scripts: [`scripts/ex07/`](scripts/ex07/)
-
-1. Ejecutar `dev_create_index_email.sql` en `WSn_DEV`.
-2. Generar el paquete `EX04` desde DEV.
-3. Antes de desplegar, agregar a mano en la UI `02_insert_demo_customer.sql` (Upgrade) y `02_delete_demo_customer.sql` (Downgrade).
-4. Ejecutar Pre-check y hacer Upgrade de RS y QA.
-
----
-
-## Ejercicio 8: Labels y trazabilidad (desafío)
-
-1. Aplicar el label `WORKSHOP_DONE` sobre Release Source.
-2. Revisar **Activities / Audit** y reconstruir quién desplegó qué, dónde y cuándo.
-3. *(Opcional, DOP 26.3 o posterior)* Usar **Explain Package / Audit Package** (Genie AI) sobre `EX02`.
-
----
-
 ## Resumen
 
 | # | Tema | Paquete | Tiempo |
@@ -166,8 +147,6 @@ Scripts: [`scripts/ex07/`](scripts/ex07/)
 | 4 | Deploy RS → QA | EX02 | 15' |
 | 5 | Rollback | EX02 | 10' |
 | 6 | Drift | n/a | 15' |
-| 7 | Desafío: modificar paquete | EX04 | 20' |
-| 8 | Desafío: labels / auditoría | n/a | 10' |
 
 ## Estructura del repositorio
 
@@ -178,6 +157,5 @@ scripts/
   ex04/  Verificación del deploy en QA
   ex05/  Verificación del rollback
   ex06/  Generar y revertir drift en QA
-  ex07/  Índice desde DEV + script de datos manual
 images/  Capturas de pantalla de la UI
 ```
