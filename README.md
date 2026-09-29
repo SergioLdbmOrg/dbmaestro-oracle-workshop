@@ -81,14 +81,11 @@ Scripts: [`scripts/ex02/`](scripts/ex02/)
 
 **Objetivo:** validar el paquete contra las políticas antes de desplegarlo.
 
-Scripts: [`scripts/ex03/`](scripts/ex03/)
-
 1. Seleccionar `EX01` y ejecutar **Pre-check**.
 2. Revisar el resultado: reglas evaluadas, warnings y errores.
 3. Hacer lo mismo con `EX02`.
-4. **Forzar una falla:** crear el paquete `EX03` subiendo solo `01_drop_customers_bad.sql` (sin downgrade) y correr el Pre-check. **No desplegarlo.**
 
-✅ **Resultado esperado:** `EX01` y `EX02` pasan. `EX03` genera un warning o error de política (operación destructiva, falta de downgrade, etc.).
+✅ **Resultado esperado:** `EX01` y `EX02` pasan el Pre-check.
 
 💡 **Para pensar:** ¿qué reglas de política están activas en el proyecto? ¿Cuáles bloquean y cuáles solo avisan?
 
@@ -159,7 +156,7 @@ Scripts: [`scripts/ex07/`](scripts/ex07/)
 | 0 | Reconocimiento | V0 | 10' |
 | 1 | Paquete manual (tabla) | EX01 | 15' |
 | 2 | Build desde DEV (SP) | EX02 | 20' |
-| 3 | Pre-check | EX01–EX03 | 15' |
+| 3 | Pre-check | EX01, EX02 | 15' |
 | 4 | Deploy RS → QA | EX01, EX02 | 15' |
 | 5 | Rollback | EX02 | 10' |
 | 6 | Drift | n/a | 15' |
@@ -172,7 +169,6 @@ Scripts: [`scripts/ex07/`](scripts/ex07/)
 scripts/
   ex01/  Paquete manual: tabla EX_CUSTOMERS (upgrade + downgrade)
   ex02/  Scripts para ejecutar en DEV: tabla + procedure EX_ADD_CUSTOMER
-  ex03/  Script "malo" para forzar una falla de Pre-check
   ex04/  Verificación del deploy en QA
   ex05/  Verificación del rollback
   ex06/  Generar y revertir drift en QA
