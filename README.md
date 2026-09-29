@@ -45,6 +45,8 @@ Scripts: [`scripts/ex01/`](scripts/ex01/)
 
 ✅ **Resultado esperado:** `EX01` aparece en estado *Pending* (sin desplegar) con 1 script de upgrade y 1 de downgrade.
 
+> ℹ️ **Nota:** `EX01` es solo para practicar cómo se arma un paquete a mano: **no se despliega** en ningún ejercicio. La tabla `EX_CUSTOMERS` llega a Release Source y QA dentro de `EX02` (ejercicio 2), que se genera con Build desde DEV.
+
 💡 **Para pensar:** ¿qué pasa si el paquete no tiene downgrade? (Se retoma en el ejercicio 5.)
 
 ---
