@@ -110,7 +110,11 @@ Scripts: [`scripts/ex04/`](scripts/ex04/)
 
 Scripts: [`scripts/ex05/`](scripts/ex05/)
 
-1. Hacer **Rollback** de QA a la versión anterior a `EX02`.
+1. Abrir el menú del entorno **QA**, elegir **Rollback** y seleccionar el package que se desea rollbackear: `EX02`. Tiene que quedar en **Selected Packages**. Dejar **Backup** y **Auto Restore** con sus valores por defecto y confirmar.
+
+   ![Diálogo Rollback: EX02 en Selected Packages](images/ex05_rollback_dialog.png)
+
+   *La captura muestra el diálogo abierto sobre Release Source; en QA se ve igual.*
 2. Ejecutar `verify_rollback.sql` en `WSn_QA` y confirmar que `EX_ADD_CUSTOMER` ya no existe.
 3. Volver a hacer **Upgrade** de QA a la última versión.
 
